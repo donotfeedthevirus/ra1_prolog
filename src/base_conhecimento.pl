@@ -107,3 +107,10 @@ pergunta(7, 'Você curte APIs, servidores e lógica de negócio (back-end)?', de
 pergunta(8, 'Você gosta de modelar dados e escrever SQL?', banco_de_dados).
 pergunta(9, 'Você se interessa por redes, protocolos e conectividade?', redes).
 pergunta(10, 'Você tem interesse por segurança (pentest, criptografia, etc.)?', seguranca).
+
+% Para confirmar se os fatos estão consistentes: 
+lista_trilhas :-
+    forall(trilha(T, D), format('~w - ~w~n', [T, D])).
+
+lista_perguntas :-
+    forall(pergunta(Id, Txt, C), format('~d. (~w) ~w~n', [Id, C, Txt])).
