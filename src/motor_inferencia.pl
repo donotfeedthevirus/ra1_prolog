@@ -36,3 +36,27 @@ calcula_pontuacao(_UserCtx, Trilha, Pontuacao) :-
         ),
         Pesos),
     sumlist(Pesos, Pontuacao).
+
+
+/*
+recomenda(+UserCtx, -RankingOrdenado)
+- Produz uma lista ordenada por pontuação desc.
+- Formato: [trilha(Trilha, Pontuacao), ...]
+*/
+recomenda(UserCtx, RankingOrdenado) :-
+    % coleta todas as trilhas
+    findall(T, trilha(T, _), Trilhas),
+    % calcula (Score, Trilha)
+    findall(Score-T,
+        (
+            member(T, Trilhas),
+            calcula_pontuacao(UserCtx, T, Score)
+        ),
+        PairsAsc),  % still unsorted
+    % ordenar por Score desc (convertendo para -Score asc)
+    findall(NegScore-T, (member(Score-T, PairsAsc), NegScore is -Score), NegPairs),
+    keysort(NegPairs, SortedNegPairs),   % ascending by -Score  => descending by Score
+    % volta ao formato legível
+    findall(trilha(T,S),
+        (member(NegS-T, SortedNegPairs), S is -NegS),
+        RankingOrdenado).
