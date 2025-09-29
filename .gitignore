@@ -1,0 +1,8 @@
+# editores e SO
+.DS_Store
+*.swp
+*.swo
+*.tmp
+
+# cache do prolog
+*.qlf
