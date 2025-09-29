@@ -60,3 +60,26 @@ recomenda(UserCtx, RankingOrdenado) :-
     findall(trilha(T,S),
         (member(NegS-T, SortedNegPairs), S is -NegS),
         RankingOrdenado).
+
+/*
+explica(+Trilha, -Evidencias)
+- Evidencias é uma lista de pares (Caracteristica,Peso) que contribuíram
+  para a pontuação dessa Trilha dadas as respostas 's'.
+- Útil para exibir "por que" a recomendação foi feita.
+*/
+explica(Trilha, Evidencias) :-
+    % pega todas as caracteristicas positivas vindas das respostas
+    setof(C,
+          Id^Txt^(resposta_positiva(Id), pergunta(Id, Txt, C)),
+          CaracteristicasPositivas), !,
+    % para cada característica positiva, se houver peso na trilha, registra
+    findall((C, Peso),
+        (
+            member(C, CaracteristicasPositivas),
+            perfil(Trilha, C, Peso)
+        ),
+        Evidencias).
+explica(_Trilha, []) :-
+    % Sem respostas positivas, sem evidências.
+    % (Usado quando o usuário ainda não respondeu ou perfil vazio)
+    true.
