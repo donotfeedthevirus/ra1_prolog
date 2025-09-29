@@ -18,6 +18,14 @@ normalize_answer(StrIn, n) :-
 
 % fluxo de uso
 
+% ------------------------------------------------------------
+% iniciar/0
+% Ponto de entrada da interface interativa:
+% - limpa as respostas antigas
+% - mostra a introdução na tela
+% - chama o loop de perguntas
+% - roda a recomendação e exibe o resultado
+% ------------------------------------------------------------
 iniciar :-
     retractall(motor_inferencia:resposta(_,_)),
     writeln('=== Orientador de Trilhas de Computação ==='),
@@ -27,11 +35,25 @@ iniciar :-
     recomenda(_, Ranking),
     exibe_resultado(Ranking).
 
+% ------------------------------------------------------------
+% faz_perguntas/0
+% Percorre todas as perguntas definidas em base_conhecimento,
+% garante que a ordem dos Ids está certa,
+% e para cada uma chama perguntar/1 (abaixo).
+% ------------------------------------------------------------
 faz_perguntas :-
     findall(Id, pergunta(Id, _, _), Ids),
     sort(Ids, SortedIds),
     forall(member(Id, SortedIds), perguntar(Id)).
 
+% ------------------------------------------------------------
+% perguntar/1
+% Exibe a pergunta pelo terminal,
+% lê a resposta do usuário (string),
+% normaliza pra 's' ou 'n',
+% e salva como fato resposta(Id, s/n).
+% Se a entrada for inválida, avisa e pergunta de novo.
+% ------------------------------------------------------------
 perguntar(Id) :-
     pergunta(Id, Texto, _Car),
     format('~d) ~w (s/n): ', [Id, Texto]),
@@ -41,6 +63,13 @@ perguntar(Id) :-
         perguntar(Id)
     ).
 
+% ------------------------------------------------------------
+% exibe_resultado/1
+% Recebe o ranking de trilhas,
+% imprime todas com suas pontuações,
+% e depois mostra a(s) trilha(s) com maior score
+% junto com as evidências (características que contaram pontos).
+% ------------------------------------------------------------
 exibe_resultado(Ranking) :-
     writeln('\n=== Resultado Final ==='),
     forall(member(trilha(T, S), Ranking),
