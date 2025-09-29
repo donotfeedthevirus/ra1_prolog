@@ -93,3 +93,17 @@ perfil(redes_e_infraestrutura, banco_de_dados, 2).
 perfil(redes_e_infraestrutura, programacao_funcional, 1).
 perfil(redes_e_infraestrutura, programacao_logica, 2).
 perfil(redes_e_infraestrutura, desenvolvimento_frontend, 1).
+
+%% pergunta(Id, Texto, Caracteristica).
+%  Ids contíguos para facilitar iteração (1..10)
+
+pergunta(1, 'Você curte resolver quebra-cabeças de lógica?', raciocinio_logico).
+pergunta(2, 'Você se sente confortável com matemática (álgebra/funções)?', matematica).
+pergunta(3, 'Você tem afinidade com estatística e probabilidade?', estatistica).
+pergunta(4, 'Você gosta de pensar em funções puras e composição (estilo FP)?', programacao_funcional).
+pergunta(5, 'Você se interessa por fatos e regras (estilo Prolog)?', programacao_logica).
+pergunta(6, 'Você gosta de HTML/CSS/design e interfaces?', desenvolvimento_frontend).
+pergunta(7, 'Você curte APIs, servidores e lógica de negócio (back-end)?', desenvolvimento_backend).
+pergunta(8, 'Você gosta de modelar dados e escrever SQL?', banco_de_dados).
+pergunta(9, 'Você se interessa por redes, protocolos e conectividade?', redes).
+pergunta(10, 'Você tem interesse por segurança (pentest, criptografia, etc.)?', seguranca).
