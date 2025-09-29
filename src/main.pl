@@ -1,9 +1,11 @@
-:- initialization(ok).
+:- use_module(base_conhecimento).
+:- use_module(motor_inferencia).
+:- use_module(interface).
 
-% Primeira estrutura so para testar os scripts.
-iniciar :-
-    writeln('> Interface ainda nao implementada.'),
-    halt.
+% entrada "interativa"
+:- initialization(iniciar, main).
+
+% testes ainda vao ser implementados
 run_tests :-
-    writeln('> Testes automatizados ainda nao implementados.'),
+    writeln('> Testes automatizados ainda nao implementados (Milestone 4).'),
     halt.

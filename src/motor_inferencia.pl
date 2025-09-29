@@ -1,7 +1,8 @@
 :- module(motor_inferencia, [
     calcula_pontuacao/3,
     recomenda/2,
-    explica/2
+    explica/2,
+    resposta/2
 ]).
 
 :- use_module(library(lists)).          % sumlist/2
@@ -10,7 +11,7 @@
 % Ler respostas de resposta/2 (populado pela UI ou pelos testes)
 :- dynamic resposta/2.
 
-% True quando pergunta Id tem uma resposta positiva 
+% True quando pergunta Id tem uma resposta positiva
 resposta_positiva(Id) :-
     resposta(Id, s).
 
